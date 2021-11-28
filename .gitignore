@@ -1,0 +1,22 @@
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+### db ###
+*.db
+.env
+db.sqlite3
+
+### images ###
+*/static/profile_pics
+
+### MyDevil ###
+public/
+tmp/
+
+### test ###
+.coverage
+htmlcov
