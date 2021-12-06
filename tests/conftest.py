@@ -1,17 +1,16 @@
-import os
-import tempfile
-
 import pytest
 
 from flask_sqlalchemy import SQLAlchemy
-from students_manager import create_app
-db = SQLAlchemy()
+from students_manager import db, create_app
+from students_manager.test_config import TestConfig
+
 
 @pytest.fixture
 def client():
-    app = create_app()
+    app = create_app(TestConfig)
 
     with app.test_client() as client:
         with app.app_context():
-            db.init_app(app)
+            db.create_all()
         yield client
+        db.drop_all()

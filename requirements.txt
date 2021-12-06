@@ -4,3 +4,4 @@ SQLAlchemy==1.4.27
 flask-marshmallow==0.14.0
 psycopg2-binary==2.9.2
 marshmallow-sqlalchemy==0.26.1
+factory-boy==3.2.1
