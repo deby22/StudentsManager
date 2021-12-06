@@ -5,6 +5,8 @@
 __pycache__/
 local_settings.py
 
+.idea/
+
 ### db ###
 *.db
 .env
