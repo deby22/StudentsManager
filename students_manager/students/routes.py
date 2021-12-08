@@ -38,14 +38,11 @@ def get_student(id):
 @students.route("/students/<string:id>", methods=["PUT"])
 def update_student(id):
     student = Student.query.get_or_404(id)
-    name = request.json.get("name")
-    surname = request.json.get("surname")
-    specialization = request.json.get("specialization")
-    if name:
+    if name := request.json.get("name"):
         student.name = name
-    if surname:
+    if surname := request.json.get("surname"):
         student.surname = surname
-    if specialization:
+    if specialization := request.json.get("specialization"):
         student.specialization = specialization
     db.session.add(student)
     db.session.commit()
