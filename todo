@@ -7,3 +7,5 @@
 7. more test (i dont think test for models of schemas are required in this case)
 8. separate test via dirs
 9. pre-commit (black)
+10. add typehint
+11. coverage
