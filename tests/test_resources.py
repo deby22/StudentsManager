@@ -1,5 +1,6 @@
 import json
 import uuid
+
 import factory
 
 from tests.factories import StudentFactory
@@ -77,6 +78,25 @@ def test_delete_student_with_existing_student_should_return_entity(client):
 
     # Assert
     assert response.status_code == 404
+
+
+def test_delete_should_return_200_on_non_existing_entity(client):
+    response = client.delete(f"/students/{uuid.uuid4()}")
+    assert response.status_code == 200
+
+
+def test_delete_should_return_200_on_existing_entity(client):
+    # Arrange
+    student = factory.build(dict, FACTORY_CLASS=StudentFactory)
+    created_student = client.post(
+        "/students/", data=json.dumps(student), content_type="application/json"
+    ).json["id"]
+
+    # Act
+    response = client.delete(f"/students/{created_student}")
+
+    # arrange
+    assert response.status_code == 200
 
 
 def test_update_student_with_existing_student_and_empty_json_data_should_not_update_entity(

@@ -1,7 +1,7 @@
 import factory
 
-from students_manager.students.models import Student
 from students_manager import db
+from students_manager.students.models import Student
 
 
 class StudentFactory(factory.alchemy.SQLAlchemyModelFactory):

@@ -2,7 +2,6 @@ from flask.cli import FlaskGroup
 
 from students_manager import create_app, db
 
-
 app = create_app()
 cli = FlaskGroup(app)
 

@@ -1,10 +1,10 @@
 from flask import Blueprint, request
 from flask.json import jsonify
 
+from students_manager import db
+
 from .models import Student
 from .schemas import StudentSchema
-
-from students_manager import db
 
 students = Blueprint("students", __name__)
 

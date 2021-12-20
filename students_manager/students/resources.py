@@ -1,10 +1,11 @@
-from flask_restx import Namespace, Resource
 from flask.json import jsonify
+from flask_restx import Namespace, Resource
 
+from students_manager import db
+
+from .api import api
 from .models import Student
 from .schemas import StudentSchema
-from .api import api
-from students_manager import db
 
 parser = api.parser()
 parser.add_argument(
@@ -59,11 +60,13 @@ class StudentDetailResource(Resource):
         return schema.dump(student)
 
     def delete(self, id: int):
-        student = Student.query.get_or_404(id)
-        db.session.delete(student)
-        db.session.commit()
-        schema = StudentSchema()
-        return schema.dump(student)
+        student = Student.query.get(id)
+        if student:
+            db.session.delete(student)
+            db.session.commit()
+            schema = StudentSchema()
+            return schema.dump(student), 200
+        return {}, 200
 
     @student_namespace.doc(parser=parser)
     def put(self, id: str):

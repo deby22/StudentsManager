@@ -1,8 +1,8 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from students_manager.config import Config
 from flask_marshmallow import Marshmallow
+from flask_sqlalchemy import SQLAlchemy
 
+from students_manager.config import Config
 
 db = SQLAlchemy()
 ma = Marshmallow()

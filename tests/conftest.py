@@ -1,7 +1,7 @@
 import pytest
-
 from flask_sqlalchemy import SQLAlchemy
-from students_manager import db, create_app
+
+from students_manager import create_app, db
 from students_manager.test_config import TestConfig
 
 
