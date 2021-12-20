@@ -152,7 +152,7 @@ def test_update_student_with_existing_student_and_non_empty_json_data_should_not
 
 def test_update_student_with_non_existing_student_should_not_update_entity(client):
     # Act
-    response = client.get(f"/students/{uuid.uuid4()}")
+    response = client.put(f"/students/{uuid.uuid4()}")
 
     # Assert
     assert response.status_code == 404

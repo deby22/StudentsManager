@@ -1,7 +1,6 @@
 from flask.json import jsonify
 from flask_restx import Namespace, Resource
-
-from students_manager import db
+from students_manager.common import Repo
 
 from .api import api
 from .models import Student
@@ -33,7 +32,7 @@ student_namespace = Namespace("students", description="Students namespace")
 @student_namespace.route("/")
 class StudentListResource(Resource):
     def get(self):
-        students = Student.query.all()
+        students = Repo.all(Student)
         schema = StudentSchema(many=True)
         return jsonify(schema.dump(students))
 
@@ -44,8 +43,7 @@ class StudentListResource(Resource):
         surname = args.get("surname")
         specialization = args.get("specialization")
         student = Student(name=name, surname=surname, specialization=specialization)
-        db.session.add(student)
-        db.session.commit()
+        Repo.save(student)
         schema = StudentSchema()
         return schema.dump(student), 201
 
@@ -55,17 +53,14 @@ class StudentListResource(Resource):
 @student_namespace.param("id", "The student identifier")
 class StudentDetailResource(Resource):
     def get(self, id: int):
-        student = Student.query.get_or_404(id)
-        schema = StudentSchema()
-        return schema.dump(student)
-
-    def delete(self, id: int):
-        student = Student.query.get(id)
-        if student:
-            db.session.delete(student)
-            db.session.commit()
+        if student := Repo.get(Student, id):
             schema = StudentSchema()
             return schema.dump(student), 200
+        else:
+            return {}, 404
+
+    def delete(self, id: str):
+        Repo.delete(Student, id)
         return {}, 200
 
     @student_namespace.doc(parser=parser)
@@ -78,7 +73,6 @@ class StudentDetailResource(Resource):
             student.surname = surname
         if specialization := args.get("specialization"):
             student.specialization = specialization
-        db.session.add(student)
-        db.session.commit()
+        Repo.save(student)
         schema = StudentSchema()
         return schema.dump(student)
