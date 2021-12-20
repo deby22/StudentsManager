@@ -13,10 +13,9 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
 
     db.init_app(app)
-    from students_manager.students.routes import students
-    from students_manager.errors.handlers import errors
 
-    app.register_blueprint(errors)
-    app.register_blueprint(students)
+    from students_manager.students import api
+
+    api.init_app(app)
 
     return app
