@@ -1,9 +1,6 @@
-1. add restx
 2. query params [search] : GET /students without query parameters returns a list of all students; by passing query parameters to GET request (e.g. /students?specialization=Math) returned list should contain only students matching filtration parameters
-3. DELETE returns 200
 4. Validation (required fields)
 5. swagger ui -> restx have it out of the box at all
-6. add service layer
 7. more test (i dont think test for models of schemas are required in this case)
 8. separate test via dirs
 9. pre-commit (black)
